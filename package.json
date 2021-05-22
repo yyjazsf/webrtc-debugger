@@ -1,0 +1,54 @@
+{
+  "name": "webrtc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-old": "concurrently \"tsc -w\" \"nodemon ./dist/app.js\"",
+    "dev": "nodemon",
+    "compile": "tsc",
+    "serve": "node dist/app.js",
+    "start": "pm2 start ecosystem.config.js --env production",
+    "restart": "pm2 restart ecosystem.config.js --env production",
+    "stop": "pm2 stop ecosystem.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa-bodyparser": "^4.3.0",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1",
+    "redis": "^3.1.2",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.0.1",
+    "socket.io": "^4.1.2",
+    "socket.io-redis": "^6.1.1",
+    "typeorm": "^0.2.32"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/koa": "^2.13.1",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.2",
+    "@types/koa-static": "^4.0.1",
+    "@types/redis": "^2.8.28",
+    "concurrently": "^6.1.0",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.3",
+    "utf-8-validate": "^5.0.5"
+  }
+}
