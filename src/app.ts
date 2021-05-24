@@ -1,22 +1,31 @@
+import 'reflect-metadata';
 import fs from 'fs'
 import path from 'path'
-import http from 'http';
-import { Server } from "socket.io";
-import redis from 'redis'
 import Koa from 'koa';
 import staticServe from 'koa-static'
 import koaBody from 'koa-body';
 import koaLog from 'koa-logger'
+// import CSRF from 'koa-csrf'
+
 import config from './config'
 import router from './router'
-import websocketController from './controller/websocket'
-import errorController from './controller/error'
+import SocketIOPlugin from './extend/socket-io'
+import errorController from './controllers/error'
+import websocketController from './controllers/websocket'
 
 const app = new Koa(); 
 
 app.on('error', errorController);
 
 app.use(koaLog());
+// add the CSRF middleware
+// app.use(new CSRF({
+//     invalidTokenMessage: 'Invalid CSRF token',
+//     invalidTokenStatusCode: 403,
+//     excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
+//     disableQuery: false
+// }));
+
 app.use(koaBody({
     multipart: config.enableUploadFile, // upload file
     encoding:'gzip',
@@ -26,22 +35,12 @@ app.use(koaBody({
         maxFieldsSize: config.maxUploadFileSize,
     }
 }));
-// change to nginx
+
 app.use(staticServe(path.join( __dirname, '../public')));
 app.use(router.routes());
 
-// #region socket.io
-const redisClient = redis.createClient()
-const server = http.createServer(app.callback())
-const io = new Server(server, {
-    path: '/ws/',
-    adapter: require("socket.io-redis")({
-        pubClient: redisClient,
-        subClient: redisClient.duplicate()
-    })
-});
+const { io, server } = SocketIOPlugin(app)
 websocketController(io)
-// #endregion socket.io
 
 server.listen(3000)
 

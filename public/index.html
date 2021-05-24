@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>webRTC-demo</title>
     <!-- <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.0.1/socket.io.js"></script> -->
-    <script src="https://cdn.socket.io/4.1.1/socket.io.min.js" integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.1.1/socket.io.min.js"
+        integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a"
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div id="app">
         <h1>webRTC-demo</h1>
@@ -20,8 +24,7 @@
             transports: ["websocket"],
             withCredentials: true,
             query: {
-                username: 'yyj',
-                passwd: 'xxx'
+                token: ''
             }
         });
         socket.on("connect", () => {
@@ -37,4 +40,5 @@
 
     </script>
 </body>
+
 </html>
